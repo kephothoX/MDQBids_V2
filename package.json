@@ -8,6 +8,7 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },
+  "type": "module",
   "prettier": {
     "overrides": [
       {
@@ -30,9 +31,14 @@
     "@angular/platform-browser": "^20.1.0",
     "@angular/platform-browser-dynamic": "^20.1.0",
     "@angular/router": "^20.1.0",
-    "@hashgraph/sdk": "^2.69.0",
+    "@hashgraph/sdk": "^2.70.0",
+    "@metamask/providers": "^22.1.0",
+    "@metamask/sdk": "^0.33.0",
     "@ng-bootstrap/ng-bootstrap": "^19.0.1",
+    "@nomicfoundation/hardhat-toolbox": "^6.1.0",
     "firebase": "^12.0.0",
+    "hardhat": "^2.26.2",
+    "pinata": "^2.4.9",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "web3": "^4.16.0",
@@ -43,6 +49,7 @@
     "@angular/cli": "^20.1.4",
     "@angular/compiler-cli": "^20.1.0",
     "@types/jasmine": "~5.1.0",
+    "@types/web3": "^1.0.20",
     "jasmine-core": "~5.8.0",
     "karma": "~6.4.0",
     "karma-chrome-launcher": "~3.2.0",

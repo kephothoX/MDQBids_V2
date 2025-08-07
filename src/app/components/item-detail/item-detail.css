@@ -1,0 +1,32 @@
+.item-detail-container {
+  padding: 20px;
+  max-width: 800px;
+  margin: 20px auto;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+}
+
+.item-detail-container h2 {
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.item-detail-container p {
+  margin-bottom: 8px;
+  line-height: 1.5;
+}
+
+.item-detail-container strong {
+  margin-right: 5px;
+}
+
+.item-images img {
+  max-width: 100%;
+  height: auto;
+  margin-bottom: 10px;
+  border: 1px solid #eee;
+  padding: 5px;
+  background-color: #fff;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+}

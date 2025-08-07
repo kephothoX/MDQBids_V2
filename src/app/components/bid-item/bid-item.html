@@ -1,0 +1,18 @@
+<div class="card">
+    <a routerLink="/items/{{ item.id}}">
+        <div class="col d-flex flex-row">
+          <span *ngFor="let entry of item.item_images">
+            <p>https://amaranth-past-ladybug-860.mypinata.cloud/ipfs/{{ entry }}?pinataGatewayToken=yArGVHGlBrqye0iYJo1v66e5kPfzWWUpR_AyFGv_TsyIqQazwhpPbSXVyFiJ2URJ</p>
+            <img  src="https://amaranth-past-ladybug-860.mypinata.cloud/ipfs/{{  entry }}?pinataGatewayToken=yArGVHGlBrqye0iYJo1v66e5kPfzWWUpR_AyFGv_TsyIqQazwhpPbSXVyFiJ2URJ" alt="MDQBids"  class="card-img-top img-thumbnail object-fit-fill rounded mx-auto d-block card-img-top" />
+          </span>
+        </div>
+      </a>
+
+      <div class="card-footer">
+        <p class="card-text article text-accent">{{ item.quote_amount | currency }}</p>
+      </div>
+
+      <div class="card-footer">
+        <p class="card-text article text-accent">{{ item.location }}</p>
+      </div>
+</div>

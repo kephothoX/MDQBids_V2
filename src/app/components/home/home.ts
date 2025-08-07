@@ -1,9 +1,24 @@
-import { Component, OnInit } from '@angular/core';
-import { environment } from 'src/environments/environments'
+import { Component, OnInit, inject, signal, ChangeDetectionStrategy } from '@angular/core';
+import { collection, query, addDoc, getDocs } from 'firebase/firestore';
+
+import { HederaFungibleToken } from '../../hedera-fungible-token';
+import { WalletService } from '../../wallet';
 
 
+import { getStorage } from "firebase/storage";
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Buffer } from 'buffer';
+// import { Buffer } from 'buffer';
+import { RouterLink } from '@angular/router';
+import { app, environment, firestore } from '../../app.config';
+
+import { Item } from '../../models/item';
+import { BidItem } from '../bid-item/bid-item';
+
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatCardModule } from '@angular/material/card';
+
+
 
 
 import {
@@ -11,43 +26,30 @@ import {
   PrivateKey,
   Wallet,
   //LocalProvider,
-  Provider,
-  AccountCreateTransaction,
-  AccountBalanceQuery,
+  AccountId,
   Hbar,
-  TransferTransaction,
-  TokenType,
-  TokenCreateTransaction,
-  TokenSupplyType,
-  TokenMintTransaction,
-  PublicKey,
-  TopicCreateTransaction,
-  TopicMessageQuery,
-  TopicMessageSubmitTransaction,
-  FileCreateTransaction,
-  FileInfoQuery
+  LedgerId,
+  
 
 } from "@hashgraph/sdk";
-
-import { Web3, MetaMaskProvider } from "web3";
-
-
-
-declare global {
-  interface Window {
-    ethereum: any
-  }
-}
 
 
 
 @Component({
   selector: 'app-home',
-  imports: [],
+  imports: [
+    BidItem,
+    MatButtonModule,
+    MatIconModule,
+    MatCardModule
+],
   templateUrl: './home.html',
-  styleUrl: './home.css'
+  styleUrl: './home.css',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HomeComponent implements OnInit {
+  public items = signal<any[]>([]);
+  public uploadProgress = signal(0);
 
   MyAccountID: string = environment.HEDERA_ACCOUNT_ID;
   MyPrivateKey: string = environment.HEDERA_PRIVATE_KEY;
@@ -57,56 +59,29 @@ export class HomeComponent implements OnInit {
 
 
   constructor(
-    private _matSnackBar: MatSnackBar
+    private _matSnackBar: MatSnackBar,
+    private _walletService: WalletService,
+    private _hederaFungibletoken: HederaFungibleToken
   ) { }
+
+  public async fetchItems(): Promise<void> {
+    const q = query(collection(firestore, 'bid_items'));
+    const querySnapshot = await getDocs(q);
+    const items: any[] = [];
+    querySnapshot.forEach((doc) => {
+      items.push({ id: doc.id, ...doc.data() });
+    });
+    this.items.set(items);
+
+    console.log('Items: ', this.items())
+  }
 
 
   async ngOnInit() {
+    //this.fetchItems();
 
-    if (window.ethereum) {
-      // use the injected Ethereum provider to initialize Web3.js
-
-      const web3 = new Web3(window.ethereum);
-
-      await window.ethereum.request({ method: "eth_requestAccounts" });
-
-
-      const accounts = await web3.eth.getAccounts();
-      // get the first account and populate placeholder
-
-      window.sessionStorage.setItem('account', `Account: ${accounts[0]}`);
-
-
-
-
-    } else {
-      this._matSnackBar.open("Please  Open 'https://metamask.io/download/' and Install MetaMask</a>.", 'Dismiss');
-      alert("Non-MetaMask Ethereum provider detected.");
-    }
-
-  }
-
-  async connectWallet() {
-    if (window.ethereum) {
-      // use the injected Ethereum provider to initialize Web3.js
-
-      const web3 = new Web3(window.ethereum);
-
-      await window.ethereum.request({ method: "eth_requestAccounts" });
-
-
-      const accounts = await web3.eth.getAccounts();
-      // get the first account and populate placeholder
-
-      window.sessionStorage.setItem('account', `Account: ${accounts[0]}`);
-
-
-
-
-    } else {
-      this._matSnackBar.open("Please  Open 'https://metamask.io/download/' and Install MetaMask</a>.", 'Dismiss');
-      alert("Non-MetaMask Ethereum provider detected.");
-    }
+    await this._walletService.WalletConn();
+  
   }
 
 
@@ -129,7 +104,7 @@ export class HomeComponent implements OnInit {
     client.setDefaultMaxQueryPayment(new Hbar(2));
 
     return client;
-
-
   }
+
+
 }

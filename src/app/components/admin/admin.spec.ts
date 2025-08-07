@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { FirestoreStorage } from './firestore-storage';
+import { Admin } from './admin';
 
-describe('FirestoreStorage', () => {
-  let component: FirestoreStorage;
-  let fixture: ComponentFixture<FirestoreStorage>;
+describe('Admin', () => {
+  let component: Admin;
+  let fixture: ComponentFixture<Admin>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [FirestoreStorage]
+      imports: [Admin]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(FirestoreStorage);
+    fixture = TestBed.createComponent(Admin);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

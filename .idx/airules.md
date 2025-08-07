@@ -133,7 +133,7 @@ export class DataService {
 ## Templates
 
 - **Data Binding**: Use the `async` pipe to handle observables directly in the template.
-- **Image Optimization**: Use `NgOptimizedImage` for all static images by adding `provideImgixLoader('https://your-image-host.com/')` or a similar provider to `app.config.ts` and using `<img ngSrc="...">`.
+- **Image Optimization**: Use `NgOptimizedImage` for all static images by adding `provideImgixLoader('https://your-image-host.com/')` or a similar provider to `app.config.ts` and using `<img src="...">`.
 
 ## TypeScript
 

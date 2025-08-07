@@ -1,1 +1,18 @@
-<p>home works!</p>
+<section class="container-fluid">
+  <mat-card>
+    <mat-card-content>
+      <h2>Items</h2>
+
+      <button mat-raised-button color="primary" (click)="fetchItems()">Fetch Items</button>
+
+      <div class="row">
+        @for (item of items(); track item.id) {
+          <app-bid-item [item]="item"></app-bid-item>
+        }
+      </div>
+    </mat-card-content>
+  </mat-card>
+</section>
+
+
+

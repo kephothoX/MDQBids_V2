@@ -18,27 +18,31 @@
 <body>
   <app-root></app-root>
 
+  <script>
 
-  // Import the functions you need from the SDKs you need
-import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
 
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
-const firebaseConfig = {
-  apiKey: "AIzaSyB9i4KpFzGkRGyBdH7h1XwVzlHht7nTpvI",
-  authDomain: "mdqbids.firebaseapp.com",
-  projectId: "mdqbids",
-  storageBucket: "mdqbids.firebasestorage.app",
-  messagingSenderId: "231906005870",
-  appId: "1:231906005870:web:f1e7060a6bc66f31d2677f",
-  measurementId: "G-SLPJZCHY7G"
-};
+    // Import the functions you need from the SDKs you need
+    import { initializeApp } from "firebase/app";
+    import { getAnalytics } from "firebase/analytics";
+    // TODO: Add SDKs for Firebase products that you want to use
+    // https://firebase.google.com/docs/web/setup#available-libraries
 
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
+    // Your web app's Firebase configuration
+    // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+    const firebaseConfig = {
+      apiKey: "AIzaSyB9i4KpFzGkRGyBdH7h1XwVzlHht7nTpvI",
+      authDomain: "mdqbids.firebaseapp.com",
+      projectId: "mdqbids",
+      storageBucket: "mdqbids.firebasestorage.app",
+      messagingSenderId: "231906005870",
+      appId: "1:231906005870:web:f1e7060a6bc66f31d2677f",
+      measurementId: "G-SLPJZCHY7G"
+    };
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const analytics = getAnalytics(app);
+
+  </script>
 </body>
 </html>
