@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 
 import { AppService } from './app-service';
 
-import ByteCode from "../../public/contract_bytes.json";
+
 
 import {
   TokenCreateTransaction,
@@ -34,7 +34,22 @@ export class HederaFungibleToken {
   ) { }
 
 
-  
+  async getTokenBalance(account: string) {
+    //Create the query
+    const accountBalanceQuery = new AccountBalanceQuery()
+      .setAccountId(account);
+
+    //Sign with the client operator private key and submit to a Hedera network
+    const accountTokenBalanceQueryResponse = await accountBalanceQuery.execute(this._appService.client);
+
+    console.log("--------------------------------- Account Token Balance Query ---------------------------------");
+    console.log("Account Token Balance           : ", accountTokenBalanceQueryResponse.tokens);
+    return {Tokens:  accountTokenBalanceQueryResponse.tokens?.__map, Size: accountTokenBalanceQueryResponse.tokens?.__map.size };
+  }
+
+
+
+
   async createFungibleToken(
     treasuryId: string,
     supplyKey: any,
@@ -42,11 +57,11 @@ export class HederaFungibleToken {
     client: any
   ): Promise<string> {
     const tokenCreateTx = await new TokenCreateTransaction()
-      .setTokenName("Test Token")
-      .setTokenSymbol("TT")
+      .setTokenName("MDQ Bids Token")
+      .setTokenSymbol("MDQBIDTOK")
       .setTokenType(TokenType.FungibleCommon)
       .setDecimals(2)
-      .setInitialSupply(100000000)
+      .setInitialSupply(1000000000000)
       .setTreasuryAccountId(treasuryId)
       .setSupplyType(TokenSupplyType.Infinite)
       .setSupplyKey(supplyKey)
@@ -66,6 +81,8 @@ export class HederaFungibleToken {
 
     //LOG THE TOKEN ID TO THE CONSOLE
     console.log(`- Created token with ID: ${tokenId} \n`);
+    window.sessionStorage.setItem('TokenID', tokenId);
+
     return tokenId;
   }
 
@@ -106,7 +123,7 @@ export class HederaFungibleToken {
   }
 
   async transferToken(
-    kephothoId: string,
+    customerId: string,
     treasuryId: string,
     tokenId: string,
     client: any,
@@ -116,18 +133,18 @@ export class HederaFungibleToken {
     //TRANSFER STABLECOIN FROM TREASURY TO ALICE
     let tokenTransferTx = await new TransferTransaction()
       .addTokenTransfer(tokenId, treasuryId, -5)
-      .addTokenTransfer(tokenId, kephothoId, 5)
+      .addTokenTransfer(tokenId, customerId, 5)
       .freezeWith(client)
       .sign(treasuryKey);
     let tokenTransferSubmit = await tokenTransferTx.execute(client);
     let tokenTransferRx = await tokenTransferSubmit.getReceipt(client);
-    console.log(`\n- Stablecoin transfer from Treasury to Alice: ${tokenTransferRx.status} \n`);
+    console.log(`Stablecoin transfer from Treasury to Customer: ${tokenTransferRx.status} \n`);
 
     //BALANCE CHECK
     var balanceCheckTx = await new AccountBalanceQuery().setAccountId(treasuryId).execute(client);
     console.log(`- Treasury balance: ${balanceCheckTx.tokens?._map.get(tokenId.toString())} units of token ID ${tokenId}`);
-    var balanceCheckTx = await new AccountBalanceQuery().setAccountId(kephothoId).execute(client);
-    console.log(`- Alice's balance: ${balanceCheckTx.tokens?._map.get(tokenId.toString())} units of token ID ${tokenId}`);
+    var balanceCheckTx = await new AccountBalanceQuery().setAccountId(customerId).execute(client);
+    console.log(`- Customers's balance: ${balanceCheckTx.tokens?._map.get(tokenId.toString())} units of token ID ${tokenId}`);
 
 
   }
@@ -179,6 +196,7 @@ export class HederaFungibleToken {
         SUPPLYKEY,
         this._appService.client
       ),
+      
       this._appService.client,
       SUPPLYKEY
     );
@@ -206,31 +224,20 @@ export class HederaFungibleToken {
     const tokenSupply = (await query_1.execute(this._appService.client)).totalSupply;
 
     console.log("The total supply of this token is " + tokenSupply);
-    
-
-    
-     
-    //Create the transaction
-    const contractCreate = new ContractCreateFlow()
-      .setGas(10000000)
-      .setBytecode(JSON.parse(JSON.stringify(ByteCode))['ByteCode']);
-
-    //Sign the transaction with the client operator key and submit to a Hedera network
-    const txResponse = contractCreate.execute(this._appService.client);
-
-    console.log('Contract TXResponse: ', txResponse)
-
-    //Get the receipt of the transaction
-    const receipt = (await txResponse).getReceipt(this._appService.client);
-
-    //Get the new contract ID
-    const newContractId = (await receipt).contractId;
-
-    console.log("The new contract ID is " + newContractId);
-    
 
   }
-  
+
+  async CreateToken() {
+    const tokenId =  await this.createFungibleToken(
+      ACCOUNT_ID,
+      SUPPLYKEY,
+      SUPPLYKEY,
+      this._appService.client
+    );
+
+    return tokenId;
+  }
+
 
 
 }

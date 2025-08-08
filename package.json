@@ -1,5 +1,6 @@
 {
-  "name": "MDQ",
+  "name": "MDQ-Bids",
+  "description": "A web3 dapp that bringd transparency to bidding processes.",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
@@ -35,7 +36,6 @@
     "@metamask/providers": "^22.1.0",
     "@metamask/sdk": "^0.33.0",
     "@ng-bootstrap/ng-bootstrap": "^19.0.1",
-    "@nomicfoundation/hardhat-toolbox": "^6.1.0",
     "firebase": "^12.0.0",
     "hardhat": "^2.26.2",
     "pinata": "^2.4.9",
@@ -50,12 +50,14 @@
     "@angular/compiler-cli": "^20.1.0",
     "@types/jasmine": "~5.1.0",
     "@types/web3": "^1.0.20",
+    "events": "^3.3.0",
     "jasmine-core": "~5.8.0",
     "karma": "~6.4.0",
     "karma-chrome-launcher": "~3.2.0",
     "karma-coverage": "~2.2.0",
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.1.0",
+    "process": "^0.11.10",
     "typescript": "~5.8.2"
   }
 }

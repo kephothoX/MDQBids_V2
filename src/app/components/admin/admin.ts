@@ -4,8 +4,9 @@ import { CommonModule
 
  } from '@angular/common';
 
- import {FormControl, FormGroup, ReactiveFormsModule} from '@angular/forms';
+ import { FormControl, FormGroup, ReactiveFormsModule} from '@angular/forms';
  import { MatInputModule } from '@angular/material/input';
+ import { MatIconModule } from '@angular/material/icon';
  import { MatFormFieldModule } from '@angular/material/form-field';
  import { MatCardModule } from '@angular/material/card';
  import { MatButtonModule } from '@angular/material/button';
@@ -21,6 +22,7 @@ import { Item } from '../../models/item';
   imports: [
     CommonModule,
     ReactiveFormsModule,
+    MatIconModule,
     MatInputModule,
     MatFormFieldModule,
     MatButtonModule,
@@ -36,6 +38,7 @@ export class Admin {
   public itemQuoteAmount = new FormControl(0);
   public itemLocation = new FormControl('');
   public itemImages = new FormControl('');
+  public expiresAt = new FormControl('');
   public selectedFiles = signal<File[]>([]);
 
   onFileSelected(event: Event): void {
@@ -51,7 +54,8 @@ export class Admin {
     itemName: this.itemName,
     itemDescription: this.itemDescription,
     itemQuoteAmount: this.itemQuoteAmount,
-    itemLocation: this.itemLocation
+    itemLocation: this.itemLocation,
+    expiresAt: this.expiresAt
   });
 
   async uploadImages(files: File[]): Promise<string[]> {
@@ -63,7 +67,7 @@ export class Admin {
     return downloadCIDs;
   }
 
-  async addItem(): Promise<void> {
+  async ngOnSubmit(): Promise<void> {
     if (this.itemName && this.itemDescription && this.itemLocation && this.itemQuoteAmount ) {
       const imageUrls = await this.uploadImages(this.selectedFiles());
 
@@ -77,6 +81,7 @@ export class Admin {
           item_images: imageUrls,
           location: `${ formValues.itemLocation }`,
           timestamp: new Date(),
+          expires_at: parseInt(`${ formValues.expiresAt }`)
         };
         const docRef = await addDoc(collection(firestore, "bid_items"), newItem);
         console.log("Document written with ID: ", docRef.id);

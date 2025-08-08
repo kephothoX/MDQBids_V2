@@ -5,5 +5,6 @@ export interface Item {
     item_images: string[];
     location: string;
     id: string;
-    timestamp: Date;
+    timestamp: any;
+    expires_at: number;
 }

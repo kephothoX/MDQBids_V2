@@ -10,6 +10,11 @@ import { PinataSDK } from "pinata";
 
 import { routes } from './app.routes';
 
+export const TOKENID = '0.0.6530688';
+
+export const TOPICID = '0.0.6531419';
+
+
 export const INFURA_API_KEY = 'e41173f3b4434520911a7b5320c1de24';
 
 export const ADDRESS: string = '0xef8CcBB6D8c4DDD7B042BDeEd03BB5eC4e5f6134';

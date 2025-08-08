@@ -4,18 +4,43 @@
 
     <mat-card-content class="admin-container">
       <form [formGroup]="newItemForm">
-        <mat-form-field>
-          <input matInput formControlName="itemName" placeholder="Item Name">
+        <mat-form-field appearance="fill" class="p-1  form-control">
+          <mat-label>Item Name </mat-label>
+          <mat-icon matPrefix class="material-symbols-outlined">info</mat-icon>
+          <mat-hint align="end">Name of the Item for bidding</mat-hint>
+          <input type="text" matInput formControlName="itemName" placeholder="Name of the Item for bidding" />
         </mat-form-field>
-        <mat-form-field>
-          <textarea matInput formControlName="itemDescription" placeholder="Item Description"></textarea>
+
+
+        <mat-form-field appearance="fill" class="p-1  form-control">
+          <mat-label>Item description </mat-label>
+          <mat-icon matPrefix class="material-symbols-outlined">info</mat-icon>
+          <mat-hint align="end">Full Item description</mat-hint>
+          <textarea matInput formControlName="itemDescription" placeholder="Full Item Description"></textarea>
         </mat-form-field>
-        <mat-form-field>
-          <input matInput formControlName="itemQuoteAmount" placeholder="Quote Amount">
+
+        <mat-form-field appearance="fill" class="p-1  form-control">
+          <mat-label>Amount Quoted </mat-label>
+          <mat-icon matPrefix class="material-symbols-outlined">info</mat-icon>
+          <mat-hint align="end">Amount Quoted for Bidding</mat-hint>
+          <input type="number" matInput formControlName="itemQuoteAmount" placeholder="Amount Quoted for Bidding">
         </mat-form-field>
-        <mat-form-field>
-          <input matInput formControlName="itemLocation" placeholder="Location">
+
+        <mat-form-field appearance="fill" class="p-1  form-control">
+          <mat-label>Bidding Duration </mat-label>
+          <mat-icon matPrefix class="material-symbols-outlined">info</mat-icon>
+          <mat-hint align="end">Duration in Seconds for Bidding</mat-hint>
+          <input type="number" matInput formControlName="expiresAt" placeholder="Time in 'Seconds' until bidding closes">
         </mat-form-field>
+
+
+        <mat-form-field appearance="fill" class="p-1  form-control">
+          <mat-label>Item Location </mat-label>
+          <mat-icon matPrefix class="material-symbols-outlined">info</mat-icon>
+          <mat-hint align="end">Item location. for pre-viewing or collection purposes.</mat-hint>
+          <input type="text" matInput formControlName="itemLocation" placeholder="Location of the Item. Can be Virtual too.">
+        </mat-form-field>
+
         <div>
           <ul class="list-group">
             <li class="list-group-item" *ngFor="let file of selectedFiles()">
@@ -30,16 +55,17 @@
           <input type="file" id="itemImages" multiple (change)="onFileSelected($event)">
         </div>
 
-        <button type="submit" type mat-raised-button color="primary" (click)="addItem()">Add Item</button>
-        <button type="reset"  mat-raised-button color="danger">Clear</button>
-
-
+        <mat-card-actions class="align-buttons-center">
+          <button type="submit" mat-raised-button color="primary" (click)="ngOnSubmit()"
+              [disabled]="!newItemForm.valid"><mat-icon
+                  class="material-symbols-outlined">add</mat-icon>Add Item</button>
+          <button type="reset" mat-raised-button color="warn"><mat-icon
+                  class="material-symbols-outlined">cancel</mat-icon>Clear</button>
+      </mat-card-actions>
 
 
       </form>
-     
+
     </mat-card-content>
   </mat-card>
 </section>
-
-

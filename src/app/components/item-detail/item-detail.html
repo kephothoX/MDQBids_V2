@@ -1,35 +1,79 @@
 <section class="container-fluid">
-  <mat-card>
-    <mat-card-content *ngIf="item">
-      <h2>Item</h2>
+  <mat-card class="mat-elevation-z6">
+    <mat-card-title-group>
+      <mat-card-title>
+        <h2>{{ BidItem()?.name }}</h2>
+      </mat-card-title>
 
-      <div class="row">
-        @if (item(); as item) {
-          <h2>{{ item.name }}</h2>
-          <p><strong>Description:</strong> {{ item.description }}</p>
-          <p><strong>Quote Amount:</strong> {{ item.quote_amount }}</p>
-          <p><strong>Location:</strong> {{ item.location }}</p>
-          <p><strong>Creation Time:</strong> {{ item.timestamp | date:'medium' }}</p>
-      
-          @if (item.item_images && item.item_images.length > 0) {
-            <h3>Images:</h3>
-            <div class="item-images">
-              @for (imageUrl of item.item_images; track $index) {
-                <img [src]="imageUrl" alt="Item Image" width="200" height="200">
+      <mat-card-subtitle>
+        @if (BidItem()?.item_images) {
+          <div id="itemImagesCarousel" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+              @for (imageUrl of BidItem()?.item_images; track $index) {
+                <div class="carousel-item {{ $index === 0 ? 'active' : '' }}">
+                  <img
+                    src="https://amaranth-past-ladybug-860.mypinata.cloud/ipfs/{{ imageUrl }}?pinataGatewayToken=yArGVHGlBrqye0iYJo1v66e5kPfzWWUpR_AyFGv_TsyIqQazwhpPbSXVyFiJ2URJ"
+                    class="d-block w-100" alt="MDQ Bids">
+                </div>
               }
             </div>
-          }
-        } @else {
-          <p>Loading item details...</p>
+            <button class="carousel-control-prev" type="button" data-bs-target="#itemImagesCarousel" data-bs-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#itemImagesCarousel" data-bs-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Next</span>
+            </button>
+          </div>
         }
-      </div>
+
+
+      </mat-card-subtitle>
+    </mat-card-title-group>
+
+    <mat-card-content class="mat-elevation-z4">
+
+      <ul class="list-group">
+        <li class="list-group-item"><strong class="bold">Description:</strong> {{ BidItem()?.description }}</li>
+        <li class="list-group-item"><strong class="bold">Quote Amount:</strong> {{ BidItem()?.quote_amount }}</li>
+        <li class="list-group-item"><strong class="bold">Location:</strong> {{ BidItem()?.location }}</li>
+        <li class="list-group-item"><strong class="bold">Created On: </strong>&nbsp; &nbsp;{{ CreatedAt }} </li>
+
+
+
+        <li class="list-group-item"><strong class="bold">Token Balance: </strong><span class="text-primary">{{
+            TokenBalance }}</span></li>
+        <li class="list-group-item"><strong class="bold">Quoted Amount: </strong><span class="text-info">{{
+            BidItem()?.quote_amount }}</span></li>
+      </ul>
+
+      @let quotedAmount = BidItem()?.quote_amount;
+      @if (TokenBalance && quotedAmount) {
+        
+        @if (TokenBalance >= quotedAmount ) {
+          <button mat-raised-button color="primary" (click)="submitBid(
+              BidItem()?.id,
+              BidItem()?.name,
+              BidItem()?.quote_amount)">
+            <mat-icon class="material-symbols-outlined">add</mat-icon>
+            Bid
+          </button>
+
+        } @else {
+          <div class="alert alert-danger" role="alert">
+            <h6>You cant bid for this item since your token balance is lower than quoted amount.</h6>
+          </div>
+        }
+      }
+
+
     </mat-card-content>
+    @if (!BidItem) {
+    <mat-progress-bar mode="buffer" color="primary"></mat-progress-bar>
+    <h5>Loading BidItem... Please Wait.</h5>
+    }
+
   </mat-card>
+
 </section>
-
-
-<div class="item-detail-container">
-  
-  
- 
-</div>

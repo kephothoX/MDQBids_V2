@@ -1,0 +1,49 @@
+<section class="container-fluid">
+    <mat-card class="mat-elevation-z6">
+        <mat-card-title>
+            <h2>Login</h2>
+        </mat-card-title>
+
+
+        <mat-card-content>
+            <div class="alert alert-danger" role="alert">
+                <span class="text-info">
+                    <h4 class="heading-4">Disclaimer</h4>
+                </span>
+
+                <h3 class="heading-3">
+                    No Hedera Account Yet? Go to
+                    <a href="https://portal.hedera.com/">
+                        Hedera Portal
+                    </a>
+                    to create new account and get your Login credentials.
+                </h3>
+            </div>
+            <form [formGroup]="newLoginForm" class="mat-elevation-z8">
+                <mat-form-field appearance="fill" class="p-1  form-control">
+                    <mat-label>Hedera Acount ID </mat-label>
+                    <mat-icon matPrefix class="material-symbols-outlined">info</mat-icon>
+                    <mat-hint align="end">Your Hedera ED25519 Account Id</mat-hint>
+                    <input type="text" matInput formControlName="accountId" placeholder="Hedera Account ID">
+                </mat-form-field>
+
+                <mat-form-field appearance="fill" class="p-1  form-control">
+                    <mat-label>Hedera Private Key </mat-label>
+                    <mat-icon matPrefix class="material-symbols-outlined">info</mat-icon>
+                    <mat-hint align="end">Your Hedera ED25519 DER Private Key</mat-hint>
+                    <input type="text" matInput formControlName="privateKey" placeholder="Hedera Private Key">
+                </mat-form-field>
+
+
+                <mat-card-actions class="align-buttons-center">
+                    <button type="submit" mat-raised-button color="primary" (click)="ngOnSubmit()"
+                        [disabled]="!newLoginForm.valid"><mat-icon
+                            class="material-symbols-outlined">login</mat-icon>Login</button>
+                    <button type="reset" mat-raised-button color="warn"><mat-icon
+                            class="material-symbols-outlined">cancel</mat-icon>Clear</button>
+                </mat-card-actions>
+
+            </form>
+        </mat-card-content>
+    </mat-card>
+</section>

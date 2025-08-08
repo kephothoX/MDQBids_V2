@@ -1,6 +1,10 @@
-# Myapp
+# MDQ Bids
 
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.1.4.
+
+Update `src/app/app.config.ts`  with your values;
+
+To generate new `TokenID` and '`TopicID` uncomment lines in `src/app/app.ts` ngOnInit block to generate new ones.
 
 ## Development server
 

@@ -1,18 +1,39 @@
 <div class="card">
-    <a routerLink="/items/{{ item.id}}">
-        <div class="col d-flex flex-row">
-          <span *ngFor="let entry of item.item_images">
-            <p>https://amaranth-past-ladybug-860.mypinata.cloud/ipfs/{{ entry }}?pinataGatewayToken=yArGVHGlBrqye0iYJo1v66e5kPfzWWUpR_AyFGv_TsyIqQazwhpPbSXVyFiJ2URJ</p>
-            <img  src="https://amaranth-past-ladybug-860.mypinata.cloud/ipfs/{{  entry }}?pinataGatewayToken=yArGVHGlBrqye0iYJo1v66e5kPfzWWUpR_AyFGv_TsyIqQazwhpPbSXVyFiJ2URJ" alt="MDQBids"  class="card-img-top img-thumbnail object-fit-fill rounded mx-auto d-block card-img-top" />
-          </span>
+  <a routerLink="/items/{{ __Item.id }}">
+    <div class="col d-flex flex-row">
+      <div class="col-md-8 mat-elevation-z4">
+        <div class="d-flex flex-column">
+
         </div>
-      </a>
-
-      <div class="card-footer">
-        <p class="card-text article text-accent">{{ item.quote_amount | currency }}</p>
       </div>
-
-      <div class="card-footer">
-        <p class="card-text article text-accent">{{ item.location }}</p>
+    </div>
+    <div id="itemImagesCarousel" class="carousel slide" data-bs-ride="carousel">
+      <div class="carousel-inner">
+        @for (entry of __Item.item_images; track $index) {
+          <div class="carousel-item {{ $index === 0 ? 'active' : '' }}">
+            <img
+              src="https://amaranth-past-ladybug-860.mypinata.cloud/ipfs/{{ entry }}?pinataGatewayToken=yArGVHGlBrqye0iYJo1v66e5kPfzWWUpR_AyFGv_TsyIqQazwhpPbSXVyFiJ2URJ"
+              class="d-block w-100" alt="MDQ Bids">
+          </div>
+        }
       </div>
+      <button class="carousel-control-prev" type="button" data-bs-target="#itemImagesCarousel" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#itemImagesCarousel" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </button>
+    </div>
+  
+  </a>
+
+  <div class="card-footer">
+    <p class="card-text article text-accent">{{ __Item.quote_amount | currency }}</p>
+  </div>
+
+  <div class="card-footer">
+    <p class="card-text article text-accent">{{ __Item.location }}</p>
+  </div>
 </div>
