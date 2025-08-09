@@ -60,4 +60,19 @@ Angular CLI does not come with an end-to-end testing framework by default. You c
 
 ## Additional Resources
 
+### Token service
+src/app/hedera-fungible-token.ts
+
+### smart Contract service
+src/app/smart-contract.ts
+
+### Wallet service
+src/app/wallet
+
+### Config variables
+src/app/app.config.ts
+
+### smart contract
+src/public/contracts/MDQBiddingContract.sol (under development)
+
 For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
