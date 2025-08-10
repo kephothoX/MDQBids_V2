@@ -60,6 +60,9 @@ Angular CLI does not come with an end-to-end testing framework by default. You c
 
 ## Additional Resources
 
+### Add New Item| Admin
+Go to `/admin`
+
 ### Token service
 src/app/hedera-fungible-token.ts
 
